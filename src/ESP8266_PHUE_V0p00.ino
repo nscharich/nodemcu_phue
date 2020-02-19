@@ -26,7 +26,6 @@ void setup() {
 void ISR_button(){
   if(millis() - but_interrupt_time > debounce_time_button){
     while(hold_buffer <= 5 && (millis() - but_interrupt_time < button_time_hold_min)){
-      // calculate time to see if button has been held for over 90% of time
         if(digitalRead(RE_button)){hold_buffer++;}
         delay(10);
       }
