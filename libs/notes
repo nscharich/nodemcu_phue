@@ -1,3 +1,57 @@
 Adafruit_GFX_Library
 Adafruit_SSD1306-master
 ESP_Hue-master
+
+Sample response for EPS_Hue
+
+Connecting to Nate
+.......
+WiFi connected
+IP address: 
+10.0.1.15
+============ GET GROUP INFO ============
+HTTP/1.1 200 OK
+Server: nginx
+Date: Fri, 28 Feb 2020 06:59:15 GMT
+Content-Type: application/json
+Connection: close
+Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+Pragma: no-cache
+Expires: Mon, 1 Aug 2011 09:00:00 GMT
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Credentials: true
+Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE, HEAD
+Access-Control-Allow-Headers: Content-Type
+X-XSS-Protection: 1
+X-Content-Type-Options: nosniff
+Content-Security-Policy: default-src 'self'
+Cache-Control: no-store
+Pragma: no-cache
+
+{"name":"Living Room","lights":["6","5","8"],"sensors":[],"type":"Room","state":{"all_on":true,"any_on":true},"recycle":false,"class":"Living room","action":{"on":true,"bri":77,"hue":8381,"sat":141,"effect":"none","xy":[0.4583,0.4099],"ct":366,"alert":"none","colormode":"xy"}}
+============ GET GROUP STATE ============
+1
+============ GET LIGHT INFO ============
+HTTP/1.1 200 OK
+Server: nginx
+Date: Fri, 28 Feb 2020 06:59:26 GMT
+Content-Type: application/json
+Connection: close
+Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+Pragma: no-cache
+Expires: Mon, 1 Aug 2011 09:00:00 GMT
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Credentials: true
+Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE, HEAD
+Access-Control-Allow-Headers: Content-Type
+X-XSS-Protection: 1
+X-Content-Type-Options: nosniff
+Content-Security-Policy: default-src 'self'
+Cache-Control: no-store
+Pragma: no-cache
+
+{"name":"Bathroom","lights":["9"],"sensors":[],"type":"Room","state":{"all_on":false,"any_on":false},"recycle":false,"class":"Bathroom","action":{"on":false,"bri":254,"hue":8418,"sat":140,"effect":"none","xy":[0.4573,0.4100],"ct":366,"alert":"none","colormode":"ct"}}
+============ GET LIGHT STATE ============
+0
