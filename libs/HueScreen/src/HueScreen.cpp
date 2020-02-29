@@ -1,0 +1,38 @@
+#include<HueScreen.h>
+HueScreen::HueScreen(Adafruit_SSD1306 *disp, int x, int y, int w, int h):_disp(disp){
+    _parameters[0] = x;
+    _parameters[1] = y;
+    _parameters[2] = w;
+    _parameters[3] = h;
+    }
+void HueScreen::drawText(){
+    _disp->fillRect(0,0,127,16,SSD1306_BLACK);
+    _disp->setTextSize(2);
+    _disp->setTextColor(SSD1306_WHITE);
+    _disp->setCursor(0,0);
+    _disp->print(_groups[_groupState]);
+    _disp->print(':');
+    _disp->print(_config[_configState]);
+}
+int HueScreen::incrementGroup(){
+    if(_groupState >= 3){_groupState = 0;}
+    else{_groupState++;}
+    this->drawText();
+    return _groupState;
+}
+
+int HueScreen::incrementConfig(){
+    if(_configState >= 3){_configState = 0;}
+    else{_configState++;}
+    this->drawText();
+    return _configState;
+}
+
+void HueScreen::updateProgress(int i){
+    if(i > 100 || i < 0){return;}
+    _progress = i;
+    int16_t temp = (((_parameters[2]-3)*_progress)/100) + _parameters[0]+1;
+    _disp->fillRect(temp+1,_parameters[1]+1,temp-_parameters[0],_parameters[3]-2,SSD1306_BLACK);
+    _disp->drawRect(_parameters[0],_parameters[1],_parameters[2],_parameters[3],SSD1306_WHITE);
+    _disp->fillRect(_parameters[0]+1,_parameters[1]+1,temp,_parameters[3]-2,SSD1306_WHITE);
+}
