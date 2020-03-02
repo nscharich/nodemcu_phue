@@ -45,10 +45,10 @@ void ISR_direction(){
   Serial.print("ISR Direction: ");
   if(digitalRead(RE_right)){
     Serial.println("Left");
-    progress[0] -= 2;
+    progress[0] -= 1;
   }else{
     Serial.println("Right");
-    progress[0] += 2;
+    progress[0] += 1;
   }
   last_interrupt_time = millis();
   }else if(millis() < last_interrupt_time){
@@ -64,28 +64,25 @@ void handler(Button2& btn) {
         case DOUBLE_CLICK:
             Serial.print("Change config:");
             Serial.println(screen.incrementConfig());
-            display.display();
             break;
         case TRIPLE_CLICK:
             Serial.print("Change group:");
             Serial.println(screen.incrementGroup());
-            display.display();
             break;
         case LONG_CLICK:
             Serial.print("long boi!");
             break;
     }
-    //Serial.print("click");
-    //Serial.print(" (");
-    //Serial.print(btn.getNumberOfClicks());    
-    //Serial.println(")");
 }
 
 void loop() {
   button.loop();
   if(progress[0] != progress[1]){
-    screen.updateProgress(progress[0]);
-    display.display();
+    if(progress[0] > progress[1]){
+      screen.updateProgress(1);
+    }else{
+      screen.updateProgress(0);
+    }
     progress[1] = progress[0];
   }
 }

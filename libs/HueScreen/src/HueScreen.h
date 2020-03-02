@@ -5,10 +5,13 @@
 class HueScreen{
 private:
 	int16_t _parameters[4];
-	int _progress = 0;
+	int _screenProgress = 0;
 	Adafruit_SSD1306 *_disp;
 	String _config[4] = {"on","bri","hue","sat"};
 	String _groups[4] = {"Dining","Living","Bed","Bath"};
+	uint16_t _configVal[4] = {0,0,0,0};
+	uint16_t _configMax[4] = {1,254,65535,254};
+	int16_t _configStepSize[4] = {1,2,1200,2};
 	int _configState = 0;
 	int _groupState = 0;
 public:
@@ -17,5 +20,7 @@ public:
     int incrementGroup();
     int incrementConfig();
     void updateProgress(int i);
-    int getProgress(){return _progress;}
+	int getConfigState(){return _configState;}
+	uint16_t getSendVal(){return _configVal[_configState];}
+    int getProgress(){return _screenProgress;}
 };
