@@ -25,12 +25,9 @@ class ESPHue
 		void setLightPower(byte lightNum, byte state);
 		String getGroupInfo(byte groupNum);
 		int getGroupState(byte groupNum);
-		void setGroupHue(byte groupNum, unsigned int hue);
-		void setGroupBri(byte groupNum, byte bri);
-		void setGroupSat(byte groupNum, byte sat);
-		void setGroupOn(byte groupNum, byte state);
 		void setGroup(byte groupNum, byte state, byte sat, byte bri, unsigned int hue);
 		void setGroup(byte groupNum, byte state, byte sat, byte bri, unsigned int hue, unsigned int trans);
+		void setGroupString(int groupNum, String config, uint16_t val);
 		void setGroupPower(byte groupNum, byte state);
 		int ON = 1;
 		int OFF = 0; 

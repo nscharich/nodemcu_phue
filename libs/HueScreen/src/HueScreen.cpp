@@ -36,7 +36,6 @@ void HueScreen::updateProgress(int i){
 	}else if(i == 0 && (_configVal[_configState] - _configStepSize[_configState]) >= 0){
 		_configVal[_configState] -= _configStepSize[_configState];
 	}
-	Serial.println(_configVal[_configState]);
     _screenProgress = (_configVal[_configState]*100)/_configMax[_configState];
     int16_t temp = (((_parameters[2]-3)*_screenProgress)/100) + _parameters[0]+1;
     _disp->fillRect(_parameters[0],_parameters[1],_parameters[2],_parameters[3],SSD1306_BLACK);

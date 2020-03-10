@@ -11,7 +11,7 @@ private:
 	String _groups[4] = {"Dining","Living","Bed","Bath"};
 	uint16_t _configVal[4] = {0,0,0,0};
 	uint16_t _configMax[4] = {1,254,65535,254};
-	int16_t _configStepSize[4] = {1,2,1200,2};
+	int16_t _configStepSize[4] = {1,8,1200,8};
 	int _configState = 0;
 	int _groupState = 0;
 public:
@@ -20,7 +20,7 @@ public:
     int incrementGroup();
     int incrementConfig();
     void updateProgress(int i);
-	int getConfigState(){return _configState;}
+	int getGroup(){return _groupState;}
+	String getConfigState(){return _config[_configState];}
 	uint16_t getSendVal(){return _configVal[_configState];}
-    int getProgress(){return _screenProgress;}
 };

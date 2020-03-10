@@ -197,83 +197,6 @@ void ESPHue::setGroup(byte groupNum, byte state, byte sat, byte bri, unsigned in
   delay(100);
 }
 
-void ESPHue::setGroupHue(byte groupNum, unsigned int hue)
-{
-  if (!_client->connect(_host, _port)) {
-    Serial.println("180 connection failed");
-    return;
-  }
-  String url = "/api/" + String(_apiKey) + "/groups/" + groupNum + "/action";
-  String cmd = "{\"hue\":" + String(hue) + "}";
-  int contLen = cmd.length();
-  _client->print("PUT " + url + " HTTP/1.1\r\n" +
-               "Host: " + _host + "\r\n" +
-               "Connection: keep-alive\r\n" +
-               "Accept: */*\r\n" +
-               "Content-Type: application/json\r\n" +
-               "Content-Length: " + contLen + "\r\n\r\n" + cmd + "\r\n\r\n");
-  delay(100);
-}
-
-void ESPHue::setGroupBri(byte groupNum, byte bri)
-{
-  if (!_client->connect(_host, _port)) {
-    Serial.println("180 connection failed");
-    return;
-  }
-  String url = "/api/" + String(_apiKey) + "/groups/" + groupNum + "/action";
-  String cmd = "{\"bri\":" + String(bri) + "}";
-  int contLen = cmd.length();
-  _client->print("PUT " + url + " HTTP/1.1\r\n" +
-               "Host: " + _host + "\r\n" +
-               "Connection: keep-alive\r\n" +
-               "Accept: */*\r\n" +
-               "Content-Type: application/json\r\n" +
-               "Content-Length: " + contLen + "\r\n\r\n" + cmd + "\r\n\r\n");
-  delay(100);
-}
-
-void ESPHue::setGroupSat(byte groupNum, byte sat)
-{
-  if (!_client->connect(_host, _port)) {
-    Serial.println("180 connection failed");
-    return;
-  }
-  String url = "/api/" + String(_apiKey) + "/groups/" + groupNum + "/action";
-  String cmd = "{\"sat\":" + String(sat) + "}";
-  int contLen = cmd.length();
-  _client->print("PUT " + url + " HTTP/1.1\r\n" +
-               "Host: " + _host + "\r\n" +
-               "Connection: keep-alive\r\n" +
-               "Accept: */*\r\n" +
-               "Content-Type: application/json\r\n" +
-               "Content-Length: " + contLen + "\r\n\r\n" + cmd + "\r\n\r\n");
-  delay(100);
-}
-
-void ESPHue::setGroupOn(byte groupNum, byte state)
-{
-  if (!_client->connect(_host, _port)) {
-    Serial.println("180 connection failed");
-    return;
-  }
-  String url = "/api/" + String(_apiKey) + "/groups/" + groupNum + "/action";
-  String cmd = "{\"on\":";
-  if (state == 1)
-    cmd += "true";
-  else
-    cmd += "false";
-  cmd += "}";
-  int contLen = cmd.length();
-  _client->print("PUT " + url + " HTTP/1.1\r\n" +
-               "Host: " + _host + "\r\n" +
-               "Connection: keep-alive\r\n" +
-               "Accept: */*\r\n" +
-               "Content-Type: application/json\r\n" +
-               "Content-Length: " + contLen + "\r\n\r\n" + cmd + "\r\n\r\n");
-  delay(100);
-}
-
 void ESPHue::setGroup(byte groupNum, byte state, byte sat, byte bri, unsigned int hue, unsigned int trans)
 {
   if (!_client->connect(_host, _port)) {
@@ -287,6 +210,29 @@ void ESPHue::setGroup(byte groupNum, byte state, byte sat, byte bri, unsigned in
   else
     cmd += "false,";
   cmd += " \"sat\":" + String(sat) + ", \"bri\":" + String(bri) + ", \"hue\":" + String(hue) + ", \"transitiontime\":" + String(trans) + "}";
+  int contLen = cmd.length();
+  _client->print("PUT " + url + " HTTP/1.1\r\n" +
+               "Host: " + _host + "\r\n" +
+               "Connection: keep-alive\r\n" +
+               "Accept: */*\r\n" +
+               "Content-Type: application/json\r\n" +
+               "Content-Length: " + contLen + "\r\n\r\n" + cmd + "\r\n\r\n");
+  delay(100);
+}
+
+void ESPHue::setGroupString(int groupNum, String config, uint16_t val){
+  if (!_client->connect(_host, _port)) {
+    Serial.println("203 connection failed");
+    return;
+  }
+  String url = "/api/" + String(_apiKey) + "/groups/" + String(groupNum) + "/action";
+  String cmd = "{\"" + config + "\":";
+  if(config == "on"){
+	  cmd += (val != 0) ? "true" : "false";
+  }else{
+	  cmd += String(val);
+  }
+  cmd += "}";
   int contLen = cmd.length();
   _client->print("PUT " + url + " HTTP/1.1\r\n" +
                "Host: " + _host + "\r\n" +
